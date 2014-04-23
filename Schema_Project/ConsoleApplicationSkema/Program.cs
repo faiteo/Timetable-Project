@@ -22,30 +22,50 @@ namespace ConsoleApplicationSkema
             foreach (var room in moodle.Rooms)
                 Console.WriteLine(room);
 
+            Console.ReadLine();
+
             foreach (var hold in moodle.Hold)
                 Console.WriteLine(hold);
+
+            Console.ReadLine();
 
             foreach (var teacher in moodle.Teachers)
                 Console.WriteLine(teacher);
 
+            Console.ReadLine();
+
             Console.WriteLine(moodle.LookupTeacher("PAN"));
 
+            Console.ReadLine();
+
             Console.WriteLine(moodle.LookupHold("MTH2014"));
+
+            Console.ReadLine();
 
             foreach (var teacherCode in moodle.Teachers.Select(t => t.LaererKode))
                 Console.WriteLine(moodle.LookupTeacher(teacherCode));
 
+            Console.ReadLine();
+
             foreach (var holdCode in moodle.Hold.Select(h => h.HoldCode))
                 Console.WriteLine(moodle.LookupHold(holdCode));
+
+            Console.ReadLine();
 
             foreach (var course in moodle.Courses)
                 Console.WriteLine(course);
 
+            Console.ReadLine();
+
             foreach (var module in planner.AllModules(moodle.Courses))
                 Console.WriteLine(module);
 
+            Console.ReadLine();
+
             foreach (var timeAndPlace in planner.GeneratePossibleTimesAndPlaces(moodle.Rooms))
                 Console.WriteLine(timeAndPlace);
+
+            Console.ReadLine();
 
             Skema mySkema = planner.GenerateSchema(moodle);
 
