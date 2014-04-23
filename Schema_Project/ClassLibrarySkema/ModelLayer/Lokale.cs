@@ -39,5 +39,9 @@ namespace ClassLibrarySkema.ModelLayer
             return !l1.Equals(l2);
         }
 
+        public override string ToString()
+        {
+            return string.Format("Lokale - Code: {0}", LokaleKode);
+        }
     }
 }

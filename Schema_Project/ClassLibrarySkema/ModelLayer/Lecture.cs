@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrarySkema.ModelLayer
 {
+    // A lecture is a module that has a time and a place. A concretized module.
     public class Lecture
     {
         public LectureTime Time { get; private set; }
@@ -27,13 +28,14 @@ namespace ClassLibrarySkema.ModelLayer
                 "Week: " + Time.WeekNumber.ToString() + Environment.NewLine +
                 "Day:" + Time.WeekDay.ToString() + Environment.NewLine +
                 "Time:" + Time.TimeOfDay.ToString() + Environment.NewLine +
-                "HoldIDs:" + string.Join(", ", Module.HoldObjs.Select(h => h.HoldCode)) + Environment.NewLine +
-                "LærerID:" + Module.LaererObj.LaererKode + Environment.NewLine +
+                "HoldIDs:" + string.Join(", ", Module.KursusObj.HoldObjs.Select(h => h.HoldCode)) + Environment.NewLine +
+                "LærerID:" + Module.KursusObj.LaererObj.LaererKode + Environment.NewLine +
                 "KursusID:" + Module.KursusObj.KursusKode + Environment.NewLine +
                 "LokaleID:" + Place.LokaleKode + Environment.NewLine +
                 "*****************************";
         }
     }
+
     public enum TimeOfDay { Morning, Afternoon }
 
     public class LectureTime
@@ -68,6 +70,11 @@ namespace ClassLibrarySkema.ModelLayer
         public static bool operator !=(LectureTime t1, LectureTime t2)
         {
             return !t1.Equals(t2);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("LectureTime - Week: {0}, Day: {1}, Time: {2}", WeekNumber, WeekDay, TimeOfDay);
         }
     }
 }

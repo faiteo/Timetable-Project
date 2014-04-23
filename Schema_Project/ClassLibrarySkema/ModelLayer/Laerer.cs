@@ -37,6 +37,11 @@ namespace ClassLibrarySkema.ModelLayer
             return !l1.Equals(l2);
         }
 
+        public override string ToString()
+        {
+            return string.Format("Laerer - Code: {0}", LaererKode);
+        }
+
         ////this parameters probably have to be categorized.
         //public int LaererPreference { get; set; }
         //public List<string> NotAvailableDates { get; set; }

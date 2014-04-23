@@ -24,7 +24,7 @@ namespace ClassLibrarySkema
             List<Lecture> inputList = skemaObj.LectureList;
             foreach (var item in inputList)
             {
-                if(item.Module.HoldObjs.Contains(hold))
+                if(item.Module.KursusObj.HoldObjs.Contains(hold))
                 {
                     ResultSkema.LectureList.Add(item);
                 }
@@ -45,7 +45,7 @@ namespace ClassLibrarySkema
             List<Lecture> inputList = skemaObj.LectureList;
             foreach (var item in inputList)
             {
-                if (item.Module.LaererObj.LaererKode == teacherID)
+                if (item.Module.KursusObj.LaererObj.LaererKode == teacherID)
                 {
                     ResultSkema.LectureList.Add(item);
                 }

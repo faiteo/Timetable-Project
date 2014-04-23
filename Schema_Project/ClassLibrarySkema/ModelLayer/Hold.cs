@@ -38,5 +38,10 @@ namespace ClassLibrarySkema.ModelLayer
         {
             return !h1.Equals(h2);
         }
+
+        public override string ToString()
+        {
+            return string.Format("Hold - Code: {0}", HoldCode);
+        }
     }
 }

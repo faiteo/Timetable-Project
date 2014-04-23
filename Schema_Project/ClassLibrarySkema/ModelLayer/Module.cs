@@ -8,8 +8,12 @@ namespace ClassLibrarySkema.ModelLayer
 {
     public class Module
     {
-        public List<Hold> HoldObjs { get; set; }
-        public Laerer LaererObj { get; set; }
         public Kursus KursusObj { get; set; }
+        public int ModuleNumber { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Module - Number: {0}, Kursus: {1}", ModuleNumber, KursusObj.KursusKode);
+        }
     }
 }

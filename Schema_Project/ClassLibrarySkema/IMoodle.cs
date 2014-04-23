@@ -9,10 +9,11 @@ namespace ClassLibrarySkema
 {
     public interface IMoodle
     {
-        IEnumerable<Laerer> Teachers { get; }
-        IEnumerable<Kursus> Courses { get; }
-        IEnumerable<Hold> Hold { get; }
-        Laerer MainTeacherForCourse(Kursus course);
-        IEnumerable<Hold> HoldForCourse(Kursus course);
+        List<Lokale> Rooms { get; }
+        List<Laerer> Teachers { get; }
+        List<Kursus> Courses { get; }
+        List<Hold> Hold { get; }
+        Laerer LookupTeacher(string teacherCode);
+        Hold LookupHold(string holdCode);
     }
 }

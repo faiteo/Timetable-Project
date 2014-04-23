@@ -17,8 +17,37 @@ namespace ConsoleApplicationSkema
 
             Class1 service = new Class1();
             IMoodle moodle = new DumbMoodle();
+            SchemaPlanner planner = new SchemaPlanner();
 
-            Skema mySkema = new SchemaPlanner().GenerateSchema(moodle);
+            foreach (var room in moodle.Rooms)
+                Console.WriteLine(room);
+
+            foreach (var hold in moodle.Hold)
+                Console.WriteLine(hold);
+
+            foreach (var teacher in moodle.Teachers)
+                Console.WriteLine(teacher);
+
+            Console.WriteLine(moodle.LookupTeacher("PAN"));
+
+            Console.WriteLine(moodle.LookupHold("MTH2014"));
+
+            foreach (var teacherCode in moodle.Teachers.Select(t => t.LaererKode))
+                Console.WriteLine(moodle.LookupTeacher(teacherCode));
+
+            foreach (var holdCode in moodle.Hold.Select(h => h.HoldCode))
+                Console.WriteLine(moodle.LookupHold(holdCode));
+
+            foreach (var course in moodle.Courses)
+                Console.WriteLine(course);
+
+            foreach (var module in planner.AllModules(moodle.Courses))
+                Console.WriteLine(module);
+
+            foreach (var timeAndPlace in planner.GeneratePossibleTimesAndPlaces(moodle.Rooms))
+                Console.WriteLine(timeAndPlace);
+
+            Skema mySkema = planner.GenerateSchema(moodle);
 
             //create a schema for a group/hold with id: MTH2014
             Skema holdSkema = service.CreateHoldSkema("MTH2014", mySkema, moodle);
