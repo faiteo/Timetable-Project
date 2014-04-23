@@ -8,29 +8,66 @@ namespace ClassLibrarySkema.ModelLayer
 {
     public class Lecture
     {
-        public int WeekNumber { get; set; }
-        public string DateInfo { get; set; }
-        public string TimeInfo { get; set; }
-        public Hold HoldObj { get; set; }
-        public Laerer LaererObj { get; set; }
-        public Kursus KursusObj { get; set; }
-        public Lokale LokaleObj { get; set; }
+        public LectureTime Time { get; private set; }
+
+        public Lokale Place { get; private set; }
+
+        public Module Module { get; private set; }
+
+        public Lecture(LectureTime time, Lokale place, Module lecture)
+        {
+            this.Module = lecture;
+            this.Place = place;
+            this.Time = time;
+        }
 
         public override string ToString()
         {
-            return 
-                "Week: " + WeekNumber.ToString() + Environment.NewLine +
-                "Date:" + DateInfo + Environment.NewLine +
-                "Time:" + TimeInfo + Environment.NewLine +
-                "HoldID:" + HoldObj.HoldCode + Environment.NewLine +
-                "LærerID:" + LaererObj.LaererKode + Environment.NewLine +
-                "KursusID:" + KursusObj.KursusKode + Environment.NewLine +
-                "LokaleID:" + LokaleObj.LokaleKode + Environment.NewLine +
-                "*****************************";    
+            return
+                "Week: " + Time.WeekNumber.ToString() + Environment.NewLine +
+                "Day:" + Time.WeekDay.ToString() + Environment.NewLine +
+                "Time:" + Time.TimeOfDay.ToString() + Environment.NewLine +
+                "HoldIDs:" + string.Join(", ", Module.HoldObjs.Select(h => h.HoldCode)) + Environment.NewLine +
+                "LærerID:" + Module.LaererObj.LaererKode + Environment.NewLine +
+                "KursusID:" + Module.KursusObj.KursusKode + Environment.NewLine +
+                "LokaleID:" + Place.LokaleKode + Environment.NewLine +
+                "*****************************";
+        }
+    }
+    public enum TimeOfDay { Morning, Afternoon }
+
+    public class LectureTime
+    {
+        public int WeekNumber { get; set; }
+        public DayOfWeek WeekDay { get; set; }
+        public TimeOfDay TimeOfDay { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is LectureTime)
+            {
+                var that = (LectureTime)obj;
+                return this.WeekNumber == that.WeekNumber &&
+                       this.WeekDay == that.WeekDay &&
+                       this.TimeOfDay == that.TimeOfDay;
+            }
+            else
+                return false;
         }
 
+        public override int GetHashCode()
+        {
+            return WeekNumber.GetHashCode() ^ WeekDay.GetHashCode() ^ TimeOfDay.GetHashCode();
+        }
 
+        public static bool operator ==(LectureTime t1, LectureTime t2)
+        {
+            return t1.Equals(t2);
+        }
 
-
+        public static bool operator !=(LectureTime t1, LectureTime t2)
+        {
+            return !t1.Equals(t2);
+        }
     }
 }

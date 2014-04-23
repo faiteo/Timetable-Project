@@ -17,13 +17,14 @@ namespace ClassLibrarySkema
         /// <param name="holdKode">id of the hold/group we want the schema for</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a group/hold</returns>
-        public Skema CreateHoldSkema(string holdKode, Skema skemaObj)
+        public Skema CreateHoldSkema(string holdKode, Skema skemaObj, IMoodle moodle)
         {
             Skema ResultSkema = new Skema();
+            Hold hold = moodle.Hold.First(h => h.HoldCode == holdKode);
             List<Lecture> inputList = skemaObj.LectureList;
             foreach (var item in inputList)
             {
-                if(item.HoldObj.HoldCode == holdKode)
+                if(item.Module.HoldObjs.Contains(hold))
                 {
                     ResultSkema.LectureList.Add(item);
                 }
@@ -44,7 +45,7 @@ namespace ClassLibrarySkema
             List<Lecture> inputList = skemaObj.LectureList;
             foreach (var item in inputList)
             {
-                if (item.LaererObj.LaererKode == teacherID)
+                if (item.Module.LaererObj.LaererKode == teacherID)
                 {
                     ResultSkema.LectureList.Add(item);
                 }
@@ -65,7 +66,7 @@ namespace ClassLibrarySkema
             List<Lecture> inputList = skemaObj.LectureList;
             foreach (var item in inputList)
             {
-                if (item.LokaleObj.LokaleKode == lokaleID)
+                if (item.Place.LokaleKode == lokaleID)
                 {
                     ResultSkema.LectureList.Add(item);
                 }
@@ -86,7 +87,7 @@ namespace ClassLibrarySkema
             List<Lecture> inputList = skemaObj.LectureList;
             foreach (var item in inputList)
             {
-                if (item.KursusObj.KursusKode == kursusID)
+                if (item.Module.KursusObj.KursusKode == kursusID)
                 {
                     ResultSkema.LectureList.Add(item);
                 }
