@@ -27,8 +27,18 @@ namespace ClassLibrarySkema
         }
 
         // return all the modules in the courses as a single list
-        public List<Module> AllModules(List<Kursus> courses) {
-            throw new Exception();
+        public List<Module> AllModules(List<Kursus> courses) 
+        {
+            List<Module> moduleList = new List<Module>();
+            foreach (var item in courses)
+            {
+                foreach (var item2 in item.Modules )
+                {
+                    moduleList.Add(item2);
+                }
+            }
+
+            return moduleList; 
         }
 
         // return a list of all possible time and place combinations

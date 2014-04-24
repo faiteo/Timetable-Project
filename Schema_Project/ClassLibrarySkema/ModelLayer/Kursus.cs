@@ -30,7 +30,7 @@ namespace ClassLibrarySkema.ModelLayer
 
         public override string ToString()
         {
-            return string.Format("Kursus - Code: {0}, Name: {1}, Teacher: {2}, ModuleCount: {3}, Hold: {4}", KursusKode, KursusName, LaererObj.LaererKode, Modules.Count(), string.Join(", ", HoldObjs.Select(h => h.HoldCode));
+            return string.Format("Kursus - Code: {0}, Name: {1}, Teacher: {2}, ModuleCount: {3}, Hold: {4}", KursusKode, KursusName, LaererObj.LaererKode, Modules.Count(), string.Join(", ", HoldObjs.Select(h => h.HoldCode)));
         }
     }
 }
