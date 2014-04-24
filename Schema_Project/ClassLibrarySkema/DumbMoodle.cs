@@ -76,12 +76,17 @@ namespace ClassLibrarySkema
 
         public Laerer LookupTeacher(string teacherCode)
         {
-            throw new NotImplementedException();
+            List<Laerer> teachersList = Teachers;
+            Laerer teacherObj = Teachers.First(l => l.LaererKode == teacherCode);
+            return teacherObj;
         }
+
 
         public Hold LookupHold(string holdCode)
         {
-            throw new NotImplementedException();
+            List<Hold> holdList = Hold;
+            Hold holdObj = Hold.First(h => h.HoldCode == holdCode);
+            return holdObj;
         }
     }
 }
