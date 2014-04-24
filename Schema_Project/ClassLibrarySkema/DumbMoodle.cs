@@ -41,6 +41,8 @@ namespace ClassLibrarySkema
                 new Laerer() { LaererFirstName = "Henrik", LaererLastName = "Walter", LaererKode = "HWA" },
                 new Laerer() { LaererFirstName = "Christian", LaererLastName = "Baak", LaererKode = "CBA" },
                 new Laerer() { LaererFirstName = "Hans", LaererLastName = "Jakobsen", LaererKode = "HJA" },
+                new Laerer() { LaererFirstName = "Jakob", LaererLastName = "Thomas", LaererKode = "JAC" },
+                new Laerer() { LaererFirstName = "Michael", LaererLastName = "Alfred", LaererKode = "MIA" },
                 };
             }
         }
@@ -59,6 +61,9 @@ namespace ClassLibrarySkema
                     new Hold() { HoldCode = "CSC2013", HoldAntal = 20, HoldName = "Computer Science 2013" },
                     new Hold() { HoldCode = "SOC2014", HoldAntal = 20, HoldName = "Sociology 2014" },
                     new Hold() { HoldCode = "CSC2012", HoldAntal = 20, HoldName = "Computer Science 2012" },
+                    new Hold() { HoldCode = "ELEC2012", HoldAntal = 15, HoldName = "Electrical Engineering 2012"},
+                    new Hold() { HoldCode = "CHEM2012", HoldAntal = 18, HoldName = "Chemistry 2012" },
+                    new Hold() { HoldCode = "BEC2011", HoldAntal = 20, HoldName = "Business Economics 2011" },
                 };
             }
         }
@@ -67,7 +72,18 @@ namespace ClassLibrarySkema
         {
             get 
             {
-                throw new Exception();
+                return new List<Kursus>()
+                {
+                    new Kursus("COBOL200", "Cobol Programming", 10, new List<string>(){"BEC2014","CSC2013"},"PAN",),
+                    new Kursus("ALG100", "Algorithm and Data Structure", 20, new List<string>(){"CSC2014","MTH2014"},"PJE", ),
+                    new Kursus("SemVer100", "Semantic and Verification", 15, new List<string>(){"CSC2013","CSC2012"},"KWI",),
+                    new Kursus("STAT100", "Statistics", 20 , new List<string>(){"MTH2014","ELEC2012"}, "HWA", ),
+                    new Kursus("ALGEBRA101", "Introduction to Algebra", 20 , new List<string>(){"MTH2014","BEC2011"}, "CBA", ),
+                    new Kursus("BUS100", "Principles of Business Economics", 20 , new List<string>(){"BEC2011","MTH2014"}, "HJA", ),
+                    new Kursus("SOCSC100", "Introduction to Social Sciences", 20 , new List<string>(){"SOC2014","CHM2014"}, "JAC",) 
+                    new Kursus("OOAD100", "Object Oriented Analysis Design", 15 , new List<string>(){"CSC2013","CSC2014"}, "MIA",),
+                    new Kursus("WEB200", "Web Programming", 12 , new List<string>(){"CSC2011","BEC2014"}, "PAN",)
+                };
             }
         }
 

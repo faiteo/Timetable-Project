@@ -14,18 +14,32 @@ namespace ClassLibrarySkema.ModelLayer
         public List<Hold> HoldObjs { get; private set; }
         public Laerer LaererObj { get; private set; }
 
+        //public Kursus(string code, string name, int moduleCount, List<string> holdCodes, string teacherCode, IMoodle moodle)
+        //{
+        //    this.KursusKode = code;
+        //    this.KursusName = name;
+        //    this.Modules = Enumerable.Range(1, moduleCount)
+        //                             .Select(moduleNumber => 
+        //                                 new Module() { 
+        //                                     ModuleNumber = moduleNumber, 
+        //                                     KursusObj = this 
+        //                                 }).ToList();
+        //    this.HoldObjs = holdCodes.Select(holdCode => moodle.LookupHold(holdCode)).ToList();
+        //    this.LaererObj = moodle.LookupTeacher(teacherCode);
+        //}
+
+
         public Kursus(string code, string name, int moduleCount, List<string> holdCodes, string teacherCode, IMoodle moodle)
         {
             this.KursusKode = code;
             this.KursusName = name;
-            this.Modules = Enumerable.Range(1, moduleCount)
-                                     .Select(moduleNumber => 
-                                         new Module() { 
-                                             ModuleNumber = moduleNumber, 
-                                             KursusObj = this 
-                                         }).ToList();
-            this.HoldObjs = holdCodes.Select(holdCode => moodle.LookupHold(holdCode)).ToList();
-            this.LaererObj = moodle.LookupTeacher(teacherCode);
+            this.Modules = new List<Module>();
+            for (int i = 0; i < moduleCount; i++)
+                this.Modules.Add(new Module() { ModuleNumber = i, KursusObj = this });
+            this.HoldObjs = new List<Hold>();
+            foreach (string holdCode in holdCodes)
+                this.HoldObjs.Add(moodle.LookupHold(holdCode));
+            this.LaererObj = moodle.LookupTeacher(teacherCode);  
         }
 
         public override string ToString()
