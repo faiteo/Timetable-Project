@@ -76,17 +76,13 @@ namespace ClassLibrarySkema
 
         public Laerer LookupTeacher(string teacherCode)
         {
-            List<Laerer> teachersList = Teachers;
-            Laerer teacherObj = Teachers.First(l => l.LaererKode == teacherCode);
-            return teacherObj;
+            return this.Teachers.First(l => l.LaererKode == teacherCode);
         }
 
 
         public Hold LookupHold(string holdCode)
         {
-            List<Hold> holdList = Hold;
-            Hold holdObj = Hold.First(h => h.HoldCode == holdCode);
-            return holdObj;
+            return this.Hold.First(h => h.HoldCode == holdCode);
         }
     }
 }
