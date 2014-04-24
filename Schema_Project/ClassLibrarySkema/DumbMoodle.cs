@@ -13,7 +13,7 @@ namespace ClassLibrarySkema
         {
             get
             {
-                throw new Exception();
+                return new List<Lokale>() { new Lokale() { LokaleCapacity = 30, LokaleFacility = "video", LokaleKode = "A001" } };
             }
         }
 
