@@ -24,30 +24,64 @@ namespace ClassLibrarySkema.ModelLayer
                    RoomHasCapacity(lecture);
         }
 
-        // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
-        private bool HoldClash(Lecture lecture)
+
+        // there is a teacher clash if the teacher for the lecture has already been assigned to the same timeslot in another location
+        private bool TeacherClash(Lecture lecture)
         {
-
-
-            throw new Exception();
+            bool result = false;
+            foreach (Lecture item in this.LectureList)
+            {
+                if ((lecture.Module.KursusObj.LaererObj.LaererKode == item.Module.KursusObj.LaererObj.LaererKode) &&
+                    (lecture.Time == item.Time))
+                {
+                    result = true;
+                }
+            }
+            return result;
         }
+
 
         // there is a room clash if there is already a lecture at the same time and place
         private bool RoomClash(Lecture lecture)
         {
-            throw new Exception();
+            bool result = false;
+            foreach (Lecture item in this.LectureList)
+            {
+                if ((lecture.Place.LokaleKode == item.Place.LokaleKode) && (lecture.Time == item.Time))
+                {
+                    result = true;
+                }
+            }
+            return result;
         }
 
-        // there is a teacher clash if the lecture teacher is already in another lecture at the same time
-        private bool TeacherClash(Lecture lecture)
+        // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
+        private bool HoldClash(Lecture lecture)
         {
-            throw new Exception();
+            bool result = false; 
+            foreach (var item in this.LectureList)
+            {
+                if ((lecture.Module.KursusObj.HoldObjs == item.Module.KursusObj.HoldObjs) && (lecture.Time == item.Time))
+	            {
+                    result = true;
+                }
+            }
+                return result;
         }
+
+
+
 
         // RoomHasCapacity is true, if the total number of students can fit in the room
         // i.e. the sum of HoldAntal for all hold in the module is less than the room capacity
         private bool RoomHasCapacity(Lecture lecture)
         {
+            //bool result = false;
+            //foreach (Lecture item in this.LectureList)
+            //{
+            //    if((lecture.Module.KursusObj.HoldObjs.))
+            //}
+
             throw new Exception();
         }
 

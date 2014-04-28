@@ -18,6 +18,7 @@ namespace ClassLibrarySkema
 
             foreach (var module in modules)
             {
+                //first check if there is a clash (the same teacher/hold has not been booked at the same time, in another location)
                 TimeAndPlace firstFitTimeAndPlace = possibleTimesAndPlaces.First(t => schema.CanAddLecture(new Lecture(t.Time, t.Place, module)));
                 Lecture lectureToBeAdded = new Lecture(firstFitTimeAndPlace.Time, firstFitTimeAndPlace.Place, module);
                 schema.AddLecture(lectureToBeAdded);
