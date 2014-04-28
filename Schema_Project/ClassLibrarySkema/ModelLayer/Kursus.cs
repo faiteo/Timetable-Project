@@ -39,8 +39,19 @@ namespace ClassLibrarySkema.ModelLayer
             this.HoldObjs = new List<Hold>();
             foreach (string holdCode in holdCodes)
                 this.HoldObjs.Add(moodle.LookupHold(holdCode));
-            this.LaererObj = moodle.LookupTeacher(teacherCode);  
+            this.LaererObj = moodle.LookupTeacher(teacherCode);
         }
+
+        //public Kursus(string code, string name, int moduleCount, List<Hold> hold, Laerer teacher)
+        //{
+        //    this.KursusKode = code;
+        //    this.KursusName = name;
+        //    this.Modules = new List<Module>();
+        //    for (int i = 0; i < moduleCount; i++)
+        //        this.Modules.Add(new Module() { ModuleNumber = i, KursusObj = this });
+        //    this.HoldObjs = hold;
+        //    this.LaererObj = teacher;
+        //}
 
         public override string ToString()
         {

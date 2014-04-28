@@ -13,6 +13,7 @@ namespace ClassLibrarySkema
         {
             List<TimeAndPlace> possibleTimesAndPlaces = GeneratePossibleTimesAndPlaces(moodle.Rooms);
             List<Module> modules = AllModules(moodle.Courses);
+           
             Skema schema = new Skema();
 
             foreach (var module in modules)
@@ -44,10 +45,42 @@ namespace ClassLibrarySkema
         // return a list of all possible time and place combinations
         public List<TimeAndPlace> GeneratePossibleTimesAndPlaces(List<Lokale> places)
         {
+            //generates a list of integers 1 => 20, this will be used to represent week 1 to 20.
             List<int> weeks = Enumerable.Range(1, 20).ToList();
             List<DayOfWeek> days = new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
             List<TimeOfDay> dayTimes = new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon };
-            throw new Exception();
+
+            List<TimeAndPlace> listToReturn = new List<TimeAndPlace>();
+
+            for (int i = 0; i < weeks.Count; i++) 
+            {
+                foreach (var lokale in places)  
+                {
+                    foreach (var dayofweek in days) 
+                    {
+                        foreach (var timeofday in dayTimes) 
+                        {
+                            listToReturn.Add(new TimeAndPlace()
+                               {
+                                   Place = lokale,            
+                                   Time = new LectureTime()   
+                                   {
+                                       WeekNumber = i,       
+                                       WeekDay = dayofweek,   
+                                       TimeOfDay = timeofday  
+                                   }
+                               }
+                            );  
+
+                        } 
+
+                    } 
+
+                }  
+
+            }
+
+            return listToReturn;
         }
 
         public class TimeAndPlace

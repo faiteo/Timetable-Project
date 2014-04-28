@@ -13,7 +13,7 @@ namespace ClassLibrarySkema.ModelLayer
 
         public Skema()
         {
-            LectureList = new List<Lecture>();
+           LectureList = new List<Lecture>();
         }
 
         public bool CanAddLecture(Lecture lecture)
@@ -27,6 +27,8 @@ namespace ClassLibrarySkema.ModelLayer
         // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
         private bool HoldClash(Lecture lecture)
         {
+
+
             throw new Exception();
         }
 
