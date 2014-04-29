@@ -60,12 +60,14 @@ namespace ConsoleApplicationSkema
 
             MasterSchema masterSchema = planner.GenerateSchema(moodle);
 
-            //create a schema for a group/hold with id: MTH2014
-            Skema holdSkema = service.CreateHoldSkema("MTH2014", masterSchema);
-  
-            foreach (var item in holdSkema.LectureList)
+
+
+            //create a schema for kursus with this id ALG100: 
+            Skema kursusSkema = service.CreateKursusSkema("ALG100", masterSchema);
+            foreach (var item in kursusSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
+
             }
 
             //create a schema for teacher with this initials: PJE
@@ -83,12 +85,12 @@ namespace ConsoleApplicationSkema
             }
 
 
-            //create a schema for kursus with this id ALG100: 
-            Skema kursusSkema = service.CreateKursusSkema("ALG100", masterSchema);
-            foreach (var item in kursusSkema.LectureList)
+            //create a schema for a group/hold with id: MTH2014
+            Skema holdSkema = service.CreateHoldSkema("MTH2014", masterSchema);
+
+            foreach (var item in holdSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
-
             }
 
             Console.ReadKey();
