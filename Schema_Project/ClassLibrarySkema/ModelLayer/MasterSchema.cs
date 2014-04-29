@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClassLibrarySkema.ModelLayer
 {
-    public class Skema
+    public class MasterSchema
     {
-        public List<Lecture> LectureList { get; set; }
-
-        public Skema()
-        {
-           LectureList = new List<Lecture>();
-        }
+        public List<SchemaCourse> SchemaCourse { get; set; }
     }
 }

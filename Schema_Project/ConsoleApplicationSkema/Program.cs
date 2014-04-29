@@ -57,20 +57,11 @@ namespace ConsoleApplicationSkema
 
             Console.ReadLine();
 
-            foreach (var module in planner.AllModules(moodle.Courses))
-                Console.WriteLine(module);
 
-            Console.ReadLine();
-
-            foreach (var timeAndPlace in planner.GeneratePossibleTimesAndPlaces(moodle.Rooms))
-                Console.WriteLine(timeAndPlace);
-
-            Console.ReadLine();
-
-            Skema mySkema = planner.GenerateSchema(moodle);
+            MasterSchema masterSchema = planner.GenerateSchema(moodle);
 
             //create a schema for a group/hold with id: MTH2014
-            Skema holdSkema = service.CreateHoldSkema("MTH2014", mySkema, moodle);
+            Skema holdSkema = service.CreateHoldSkema("MTH2014", masterSchema);
   
             foreach (var item in holdSkema.LectureList)
             {
@@ -78,14 +69,14 @@ namespace ConsoleApplicationSkema
             }
 
             //create a schema for teacher with this initials: PJE
-            Skema teacherSkema = service.CreateTeacherSkema("PJE", mySkema);
+            Skema teacherSkema = service.CreateTeacherSkema("PJE", masterSchema);
             foreach (var item in teacherSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
             }
 
             //create a schema for lokale with this id: BH112
-            Skema lokaleSkema = service.CreateLokaleSkema("BH112", mySkema);
+            Skema lokaleSkema = service.CreateLokaleSkema("BH112", masterSchema);
             foreach (var item in lokaleSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
@@ -93,7 +84,7 @@ namespace ConsoleApplicationSkema
 
 
             //create a schema for kursus with this id ALG100: 
-            Skema kursusSkema = service.CreateKursusSkema("ALG100", mySkema);
+            Skema kursusSkema = service.CreateKursusSkema("ALG100", masterSchema);
             foreach (var item in kursusSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());

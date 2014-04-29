@@ -17,18 +17,21 @@ namespace ClassLibrarySkema
         /// <param name="holdKode">id of the hold/group we want the schema for</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a group/hold</returns>
-        public Skema CreateHoldSkema(string holdKode, Skema skemaObj, IMoodle moodle)
+        public Skema CreateHoldSkema(string holdKode, MasterSchema masterSkemaObj)
         {
             Skema ResultSkema = new Skema();
-            Hold hold = moodle.Hold.First(h => h.HoldCode == holdKode);
-            List<Lecture> inputList = skemaObj.LectureList;
-            foreach (var item in inputList)
-            {
-                if(item.Module.KursusObj.HoldObjs.Contains(hold))
-                {
-                    ResultSkema.LectureList.Add(item);
-                }
-            }
+
+
+
+            //Hold hold = moodle.Hold.First(h => h.HoldCode == holdKode);
+            //List<Lecture> inputList = skemaObj.LectureList;
+            //foreach (var item in inputList)
+            //{
+            //    if(item.Module.KursusObj.HoldObjs.Contains(hold))
+            //    {
+            //        ResultSkema.LectureList.Add(item);
+            //    }
+            //}
             return ResultSkema;
         }
 
@@ -39,17 +42,17 @@ namespace ClassLibrarySkema
         /// <param name="teacherID">the id of the teacher we want the schema for</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a given teacher</returns>
-        public Skema CreateTeacherSkema(string teacherID, Skema skemaObj)
+        public Skema CreateTeacherSkema(string teacherID, MasterSchema masterSkemaObj)
         {
             Skema ResultSkema = new Skema();
-            List<Lecture> inputList = skemaObj.LectureList;
-            foreach (var item in inputList)
-            {
-                if (item.Module.KursusObj.LaererObj.LaererKode == teacherID)
-                {
-                    ResultSkema.LectureList.Add(item);
-                }
-            }
+            //List<Lecture> inputList = skemaObj.LectureList;
+            //foreach (var item in inputList)
+            //{
+            //    if (item.Module.KursusObj.LaererObj.LaererKode == teacherID)
+            //    {
+            //        ResultSkema.LectureList.Add(item);
+            //    }
+            //}
             return ResultSkema;
         }
 
@@ -60,17 +63,17 @@ namespace ClassLibrarySkema
         /// <param name="lokaleID">id of the lokale</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a given lokale</returns>
-        public Skema CreateLokaleSkema(string lokaleID, Skema skemaObj)
+        public Skema CreateLokaleSkema(string lokaleID, MasterSchema masterSkemaObj)
         {
             Skema ResultSkema = new Skema();
-            List<Lecture> inputList = skemaObj.LectureList;
-            foreach (var item in inputList)
-            {
-                if (item.Place.LokaleKode == lokaleID)
-                {
-                    ResultSkema.LectureList.Add(item);
-                }
-            }
+            //List<Lecture> inputList = skemaObj.LectureList;
+            //foreach (var item in inputList)
+            //{
+            //    if (item.Place.LokaleKode == lokaleID)
+            //    {
+            //        ResultSkema.LectureList.Add(item);
+            //    }
+            //}
             return ResultSkema;
         }
 
@@ -81,17 +84,18 @@ namespace ClassLibrarySkema
         /// <param name="lokaleID">id of the kursus</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a given kursus</returns>
-        public Skema CreateKursusSkema(string kursusID, Skema skemaObj)
+        public Skema CreateKursusSkema(string kursusID, MasterSchema masterSkemaObj)
         {
             Skema ResultSkema = new Skema();
-            List<Lecture> inputList = skemaObj.LectureList;
-            foreach (var item in inputList)
-            {
-                if (item.Module.KursusObj.KursusKode == kursusID)
-                {
-                    ResultSkema.LectureList.Add(item);
-                }
-            }
+
+            //List<Lecture> inputList = skemaObj.LectureList;
+            //foreach (var item in inputList)
+            //{
+            //    if (item.Module.KursusObj.KursusKode == kursusID)
+            //    {
+            //        ResultSkema.LectureList.Add(item);
+            //    }
+            //}
             return ResultSkema;
         }
        

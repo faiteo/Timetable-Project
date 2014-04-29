@@ -46,8 +46,10 @@
     <Compile Include="ModelLayer\Kursus.cs" />
     <Compile Include="ModelLayer\Laerer.cs" />
     <Compile Include="ModelLayer\Lecture.cs" />
+    <Compile Include="ModelLayer\LectureTime.cs" />
     <Compile Include="ModelLayer\Lokale.cs" />
-    <Compile Include="ModelLayer\Module.cs" />
+    <Compile Include="ModelLayer\MasterSchema.cs" />
+    <Compile Include="ModelLayer\SchemaCourse.cs" />
     <Compile Include="ModelLayer\Skema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaPlanner.cs" />
