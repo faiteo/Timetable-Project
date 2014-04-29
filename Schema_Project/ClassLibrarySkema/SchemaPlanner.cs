@@ -14,7 +14,6 @@ namespace ClassLibrarySkema
             return null;
         }
 
-
         public class TimeAndPlace
         {
             public LectureTime Time { get; set; }
