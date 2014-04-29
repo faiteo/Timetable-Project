@@ -46,16 +46,21 @@ namespace ClassLibrarySkema
         // generate all combinations of weeks from 1 to 20, days from Monday to Friday and daytimes from morning to afternoon
         public List<LectureTime> AllTimes() 
         {
-            var ret = from week in Enumerable.Range(1, 20)
-                      from day in new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday }
-                      from time in new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon }
-                      select new LectureTime() { WeekNumber = week, WeekDay = day, TimeOfDay = time };
-            return ret.ToList();
+            List<int> weeks = Enumerable.Range(1, 20).ToList();
+            List<DayOfWeek> days = new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
+            List<TimeOfDay> times = new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon }
+            //var ret = from week in weeks
+            //          from day in days
+            //          from time in times
+            //          select new LectureTime() { WeekNumber = week, WeekDay = day, TimeOfDay = time };
+            //return ret.ToList();
+            throw new Exception();
         }
 
         public bool RoomHasCapacity(Lokale room, Kursus course)
         {
-            return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
+            throw new Exception();
+            //return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
         }
 
         // We already know that the room has capacity, and that nobody else is in the room at the same time. 
@@ -71,13 +76,15 @@ namespace ClassLibrarySkema
         // there is a teacher clash if the teacher for the lecture has already been assigned to the same timeslot
         public bool TeacherClash(List<SchemaCourse> planned, Laerer teacher, LectureTime time)
         {
-            return planned.Where(sc => sc.Course.LaererObj == teacher).Any(sc => sc.LectureTimes.Contains(time));
+            throw new Exception();
+            //return planned.Where(sc => sc.Course.LaererObj == teacher).Any(sc => sc.LectureTimes.Contains(time));
         }
 
         // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
         private bool HoldClash(List<SchemaCourse> planned, List<Hold> hold, LectureTime time)
         {
-            return hold.Any(h => planned.Where(sc => sc.Course.HoldObjs.Contains(h)).Any(sc => sc.LectureTimes.Contains(time)));
+            throw new Exception();
+            //return hold.Any(h => planned.Where(sc => sc.Course.HoldObjs.Contains(h)).Any(sc => sc.LectureTimes.Contains(time)));
         }
     }
 }

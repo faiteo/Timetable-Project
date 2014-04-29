@@ -88,9 +88,6 @@ namespace ClassLibrarySkema
             }
         }
 
-
-
-
         public Laerer LookupTeacher(string teacherCode)
         {
             return this.Teachers.First(l => l.LaererKode == teacherCode);
