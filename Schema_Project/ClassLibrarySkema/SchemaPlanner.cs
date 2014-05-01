@@ -43,11 +43,21 @@ namespace ClassLibrarySkema
             return new MasterSchema() { SchemaCourse = schemaCourses };
         }
 
-
+        //Checks if the total number of students is greater or equal to the size of the lokale 
         public bool RoomHasCapacity(Lokale room, Kursus course)
         {
-            throw new Exception();
-            //return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
+            //List<int> holdCountList = HoldCount(course);
+            //int totalSumOfHold = holdCountList.Sum();
+            //return room.LokaleCapacity >= totalSumOfHold;
+ 
+            return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
+        }
+
+        // returns the total number of students from each Hold, participating in a given Kursus   
+        private List<int> HoldCount(Kursus kursus)
+        {
+            IEnumerable<int> numberOfStudents = kursus.HoldObjs.Select(h => h.HoldAntal);
+            return numberOfStudents.ToList();
         }
 
         // We already know that the room has capacity, and that nobody else is in the room at the same time. 
@@ -63,15 +73,17 @@ namespace ClassLibrarySkema
         // there is a teacher clash if the teacher for the lecture has already been assigned to the same timeslot
         public bool TeacherClash(List<SchemaCourse> planned, Laerer teacher, LectureTime time)
         {
-            throw new Exception();
+            // All the already planned schemacourses, where a teacher has been booked to teach a course
+            IEnumerable<SchemaCourse> coursesForThisTeacher = planned.Where(sc => sc.Course.LaererObj == teacher);
+            return coursesForThisTeacher.Any(sc => sc.LectureTimes.Contains(time));
+
             //return planned.Where(sc => sc.Course.LaererObj == teacher).Any(sc => sc.LectureTimes.Contains(time));
         }
 
         // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
         private bool HoldClash(List<SchemaCourse> planned, List<Hold> hold, LectureTime time)
         {
-            throw new Exception();
-            //return hold.Any(h => planned.Where(sc => sc.Course.HoldObjs.Contains(h)).Any(sc => sc.LectureTimes.Contains(time)));
+           return hold.Any(h => planned.Where(sc => sc.Course.HoldObjs.Contains(h)).Any(sc => sc.LectureTimes.Contains(time)));
         }
     }
 }
