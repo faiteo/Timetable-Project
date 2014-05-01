@@ -48,7 +48,7 @@ namespace ClassLibrarySkema
         {
             List<int> weeks = Enumerable.Range(1, 20).ToList();
             List<DayOfWeek> days = new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
-            List<TimeOfDay> times = new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon }
+            List<TimeOfDay> times = new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon };
             //var ret = from week in weeks
             //          from day in days
             //          from time in times
