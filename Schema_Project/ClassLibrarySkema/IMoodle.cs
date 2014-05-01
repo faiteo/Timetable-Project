@@ -15,5 +15,6 @@ namespace ClassLibrarySkema
         List<Hold> Hold { get; }
         Laerer LookupTeacher(string teacherCode);
         Hold LookupHold(string holdCode);
+        List<LectureTime> AllTimes();
     }
 }

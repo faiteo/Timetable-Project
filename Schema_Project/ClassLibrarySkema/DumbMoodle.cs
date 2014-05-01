@@ -98,5 +98,20 @@ namespace ClassLibrarySkema
         {
             return this.Hold.First(h => h.HoldCode == holdCode);
         }
+
+        // generate all combinations of weeks from 1 to 20, days from Monday to Friday and daytimes from morning to afternoon
+        public List<LectureTime> AllTimes()
+        {
+            List<LectureTime> listToReturn = new List<LectureTime>();
+            List<int> weeks = Enumerable.Range(1, 20).ToList();
+            List<DayOfWeek> days = new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
+            List<TimeOfDay> times = new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon };
+            //var ret = from week in weeks
+            //          from day in days
+            //          from time in times
+            //          select new LectureTime() { WeekNumber = week, WeekDay = day, TimeOfDay = time };
+            //return ret.ToList();
+            return listToReturn;
+        }
     }
 }

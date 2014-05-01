@@ -13,7 +13,7 @@ namespace ClassLibrarySkema
         {
             List<SchemaCourse> schemaCourses = new List<SchemaCourse>();
             List<Lokale> allRooms = moodle.Rooms;
-            Dictionary<Lokale, List<LectureTime>> allRoomTimes = allRooms.ToDictionary(r => r, r => AllTimes());
+            Dictionary<Lokale, List<LectureTime>> allRoomTimes = allRooms.ToDictionary(r => r, r => moodle.AllTimes());
 
             // make each course into a SchemaCourse, and remove the lectureTimes for that SchemaCourse 
             foreach (Kursus course in moodle.Courses)
@@ -43,19 +43,6 @@ namespace ClassLibrarySkema
             return new MasterSchema() { SchemaCourse = schemaCourses };
         }
 
-        // generate all combinations of weeks from 1 to 20, days from Monday to Friday and daytimes from morning to afternoon
-        public List<LectureTime> AllTimes() 
-        {
-            List<int> weeks = Enumerable.Range(1, 20).ToList();
-            List<DayOfWeek> days = new List<DayOfWeek>() { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
-            List<TimeOfDay> times = new List<TimeOfDay>() { TimeOfDay.Morning, TimeOfDay.Afternoon };
-            //var ret = from week in weeks
-            //          from day in days
-            //          from time in times
-            //          select new LectureTime() { WeekNumber = week, WeekDay = day, TimeOfDay = time };
-            //return ret.ToList();
-            throw new Exception();
-        }
 
         public bool RoomHasCapacity(Lokale room, Kursus course)
         {
