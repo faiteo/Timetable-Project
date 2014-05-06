@@ -13,35 +13,73 @@ namespace ClassLibrarySkema
         {
             List<SchemaCourse> schemaCourses = new List<SchemaCourse>();
             List<Lokale> allRooms = moodle.Rooms;
-            Dictionary<Lokale, List<LectureTime>> allRoomTimes = allRooms.ToDictionary(r => r, r => moodle.AllTimes());
 
-            // make each course into a SchemaCourse, and remove the lectureTimes for that SchemaCourse 
+            //Set all the possible timeslots in all the rooms as free 
+            Dictionary<Lokale, List<LectureTime>> freeRoomTimes = new Dictionary<Lokale, List<LectureTime>>();
+            foreach (Lokale r in allRooms)
+            {
+                freeRoomTimes.Add(r, moodle.AllTimes());
+            }
+            
+            // make each course into a SchemaCourse, and remove the lectureTimes for that SchemaCourse Main Loop
             foreach (Kursus course in moodle.Courses)
             {
-                // generate possible rooms for the course. Rooms must have sufficient capacity
-                List<Lokale> possibleRooms = allRooms.Where(r => RoomHasCapacity(r, course)).ToList(); ;
+                // Get all the rooms with sufficient capacity, based on the total number of students taking the course
+                List<Lokale> possibleRooms = FindPossibleRooms(course, allRooms);
 
-                // Fictionary from possible rooms to the possible times for the course. A possible lecture time must have no teacher clash or hold clash. We already know there is no room clash, since we remove the times we have already used for the schema courses in that room.
-                Dictionary<Lokale, List<LectureTime>> possibleRoomTimes = possibleRooms.ToDictionary(r => r, r => allRoomTimes[r].Where(time => IsPossibleTimeForCourse(schemaCourses, course, time)).ToList());
+                // Dictionary from possible rooms to the possible times for the course. A possible lecture time must have no teacher clash or hold clash. We already know there is no room clash, since we remove the times we have already used for the schema courses in that room.
+                Dictionary<Lokale, List<LectureTime>> possibleRoomTimes = FindPossibleRoomTimes(schemaCourses, course, freeRoomTimes, possibleRooms);
 
-                // the selected roomtime is the first pair of room and list of lecturetimes from the possible roomtimes, where there are enough lecturetimes for the course
-                KeyValuePair<Lokale, List<LectureTime>> selectedRoomTime = possibleRoomTimes.Where(kv => kv.Value.Count() >= course.ModuleCount).First();
 
-                // the selected room is the key of the the selected roomtime
-                Lokale selectedRoom = selectedRoomTime.Key;
+                // of the rooms in possibleRoomTimes.Keys, select those where the number of possible lecture times is enough for the course
+                List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomTimesWithEnoughLectureTimes(possibleRoomTimes, course);
 
-                // the selected room is the required number of lecturetimes for the course, taken from the selected roomtime pair.
-                List<LectureTime> selectedTimes = selectedRoomTime.Value.Take(course.ModuleCount).ToList();
+
+                // the selected room is first of the possibleRoomsWithEnoughLectureTimes
+                Lokale selectedRoom = possibleRoomsWithEnoughLectureTimes.First();
+
+                // the selectedLectureTimes is the first course.Course.ModuleCount number of lectureTimes from the possibleLectureTimes for the selected room
+                List<LectureTime> selectedLectureTimes = SelectLectureTimes(course, possibleRoomTimes[selectedRoom]);
 
                 // make a new SchemaCourse and add it to the list of already planned schemacourses.
-                schemaCourses.Add(new SchemaCourse() { Course = course, Place = selectedRoom, LectureTimes = selectedTimes });
+                schemaCourses.Add(new SchemaCourse() { Course = course, Place = selectedRoom, LectureTimes = selectedLectureTimes });
 
                 // remove the selected times from the available times for the selected room.
-                // implemented as remove all lectureTimes from the available times for the room, where such a time is contained in the selected times.
-                allRoomTimes[selectedRoom].RemoveAll(t => selectedTimes.Contains(t));
+                foreach (LectureTime lt in selectedLectureTimes)
+                {
+                    freeRoomTimes[selectedRoom].Remove(lt);
+                }
             }
             return new MasterSchema() { SchemaCourse = schemaCourses };
         }
+
+
+        public List<Lokale> FindPossibleRoomTimesWithEnoughLectureTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes, Kursus course)
+        {
+            int numberOfModules = course.ModuleCount;
+            return null;
+        }
+
+        public List<LectureTime> SelectLectureTimes(Kursus course, List<LectureTime> possibleLectureTimes)
+        {
+            return null;
+        }
+
+        List<Lokale> FindPossibleRooms(Kursus kursus, List<Lokale> lokalelist)
+        {
+            List<Lokale> possibleRooms = new List<Lokale>();
+
+            foreach (Lokale lokale in lokalelist)
+            {
+                if (RoomHasCapacity(lokale, kursus))
+                {
+                    possibleRooms.Add(lokale);
+                }
+            }
+
+            return possibleRooms;
+        }
+
 
         //Checks if the total number of students is greater or equal to the size of the lokale 
         public bool RoomHasCapacity(Lokale room, Kursus course)
@@ -49,7 +87,7 @@ namespace ClassLibrarySkema
             //List<int> holdCountList = HoldCount(course);
             //int totalSumOfHold = holdCountList.Sum();
             //return room.LokaleCapacity >= totalSumOfHold;
- 
+
             return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
         }
 
@@ -83,7 +121,36 @@ namespace ClassLibrarySkema
         // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
         private bool HoldClash(List<SchemaCourse> planned, List<Hold> hold, LectureTime time)
         {
-           return hold.Any(h => planned.Where(sc => sc.Course.HoldObjs.Contains(h)).Any(sc => sc.LectureTimes.Contains(time)));
+            return hold.Any(h => planned.Where(sc => sc.Course.HoldObjs.Contains(h)).Any(sc => sc.LectureTimes.Contains(time)));
         }
+
+
+
+        Dictionary<Lokale, List<LectureTime>> FindPossibleRoomTimes(List<SchemaCourse> planned, Kursus course, Dictionary<Lokale, List<LectureTime>> freeRoomTimes, List<Lokale> possibleRooms)
+        {
+            Dictionary<Lokale, List<LectureTime>> possibleRoomTimes = new Dictionary<Lokale, List<LectureTime>>();
+            foreach (var r in possibleRooms)
+            {
+                possibleRoomTimes[r] = new List<LectureTime>();
+                foreach (var lt in freeRoomTimes[r])
+                {
+                    if (IsPossibleTimeForCourse(planned, course, lt))
+                    {
+                        possibleRoomTimes[r].Add(lt);
+                    }
+                }                
+             }      
+            return possibleRoomTimes;
+        }
+
+
     }
 }
+
+
+
+
+
+
+
+   
