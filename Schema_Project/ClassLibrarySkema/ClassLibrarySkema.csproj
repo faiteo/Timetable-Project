@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="SchemaService.cs" />
     <Compile Include="DumbMoodle.cs" />
     <Compile Include="IMoodle.cs" />
     <Compile Include="ModelLayer\Hold.cs" />

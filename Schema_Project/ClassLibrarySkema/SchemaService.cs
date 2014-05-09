@@ -9,7 +9,7 @@ using ClassLibrarySkema.ModelLayer;
 
 namespace ClassLibrarySkema
 {
-    public class Class1
+    public class SchemaService
     {
         /// <summary>
         /// used to create a schema for a given hold/group
@@ -17,7 +17,7 @@ namespace ClassLibrarySkema
         /// <param name="holdKode">id of the hold/group we want the schema for</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a group/hold</returns>
-        public Skema CreateHoldSkema(string holdKode, MasterSchema masterSkemaObj)
+        public Skema CreateHoldSkema(string holdKode)
         {
             Skema ResultSkema = new Skema();
 
@@ -42,7 +42,7 @@ namespace ClassLibrarySkema
         /// <param name="teacherID">the id of the teacher we want the schema for</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a given teacher</returns>
-        public Skema CreateTeacherSkema(string teacherID, MasterSchema masterSkemaObj)
+        public Skema CreateTeacherSkema(string teacherID)
         {
             Skema ResultSkema = new Skema();
             //List<Lecture> inputList = skemaObj.LectureList;
@@ -63,7 +63,7 @@ namespace ClassLibrarySkema
         /// <param name="lokaleID">id of the lokale</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a given lokale</returns>
-        public Skema CreateLokaleSkema(string lokaleID, MasterSchema masterSkemaObj)
+        public Skema CreateLokaleSkema(string lokaleID)
         {
             Skema ResultSkema = new Skema();
             //List<Lecture> inputList = skemaObj.LectureList;
@@ -84,7 +84,7 @@ namespace ClassLibrarySkema
         /// <param name="lokaleID">id of the kursus</param>
         /// <param name="skemaObj">a general schema containing all lecture information</param>
         /// <returns>a schema for a given kursus</returns>
-        public Skema CreateKursusSkema(string kursusID, MasterSchema masterSkemaObj)
+        public Skema CreateKursusSkema(string courseCode)
         {
             Skema ResultSkema = new Skema();
 

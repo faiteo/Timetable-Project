@@ -15,7 +15,7 @@ namespace ConsoleApplicationSkema
         public static void Main(string[] args)
         {
 
-            Class1 service = new Class1();
+            SchemaService service = new SchemaService();
             IMoodle moodle = new DumbMoodle();
             SchemaPlanner planner = new SchemaPlanner();
 
@@ -58,12 +58,12 @@ namespace ConsoleApplicationSkema
             Console.ReadLine();
 
 
-            MasterSchema masterSchema = planner.GenerateSchema(moodle);
+           // MasterSchema masterSchema = planner.GenerateSchema(moodle);
 
 
 
             //create a schema for kursus with this id ALG100: 
-            Skema kursusSkema = service.CreateKursusSkema("ALG100", masterSchema);
+            Skema kursusSkema = service.CreateKursusSkema("ALG100");
             foreach (var item in kursusSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
@@ -71,14 +71,14 @@ namespace ConsoleApplicationSkema
             }
 
             //create a schema for teacher with this initials: PJE
-            Skema teacherSkema = service.CreateTeacherSkema("PJE", masterSchema);
+            Skema teacherSkema = service.CreateTeacherSkema("PJE");
             foreach (var item in teacherSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
             }
 
             //create a schema for lokale with this id: BH112
-            Skema lokaleSkema = service.CreateLokaleSkema("BH112", masterSchema);
+            Skema lokaleSkema = service.CreateLokaleSkema("BH112");
             foreach (var item in lokaleSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
@@ -86,7 +86,7 @@ namespace ConsoleApplicationSkema
 
 
             //create a schema for a group/hold with id: MTH2014
-            Skema holdSkema = service.CreateHoldSkema("MTH2014", masterSchema);
+            Skema holdSkema = service.CreateHoldSkema("MTH2014");
 
             foreach (var item in holdSkema.LectureList)
             {
