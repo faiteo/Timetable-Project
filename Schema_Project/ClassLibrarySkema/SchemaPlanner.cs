@@ -31,7 +31,7 @@ namespace ClassLibrarySkema
                 Dictionary<Lokale, List<LectureTime>> possibleRoomTimes = FindPossibleRoomTimes(schemaCourses, course, freeRoomTimes, possibleRooms);
 
                 // of the rooms in possibleRoomTimes.Keys, select those where the number of possible lecture times is enough for the course
-                List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomTimesWithEnoughLectureTimes(possibleRoomTimes, course);
+                List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomsWithEnoughLectureTimes(possibleRoomTimes, course);
 
                 // the selected room is first of the possibleRoomsWithEnoughLectureTimes
                 Lokale selectedRoom = possibleRoomsWithEnoughLectureTimes.First();
@@ -53,20 +53,22 @@ namespace ClassLibrarySkema
         }
 
         //method for choosing the room with >= the number of lecturetimes from the dictionary containing room/lecturetimes enough for the modules in the course 
-        public List<Lokale> FindPossibleRoomTimesWithEnoughLectureTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes, Kursus course)
+        public List<Lokale> FindPossibleRoomsWithEnoughLectureTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes, Kursus course)
         {
-            List<Lokale> possibleRoomTimesWithEnoughLectureTimes = new List<Lokale>();
+            List<Lokale> possibleRoomWithEnoughLectureTimes = new List<Lokale>();
             int numberOfModules = course.ModuleCount;
 
             foreach (var r in possibleRoomTimes)
             {
                 if (r.Value.Count >= numberOfModules)
                 {
-                    possibleRoomTimesWithEnoughLectureTimes.Add(r.Key);
+                    possibleRoomWithEnoughLectureTimes.Add(r.Key);
                 }
             }    
-            return possibleRoomTimesWithEnoughLectureTimes;
+            return possibleRoomWithEnoughLectureTimes;
         }
+
+
 
         public List<LectureTime> SelectLectureTimes(Kursus course, List<LectureTime> possibleLectureTimes)
         {
@@ -90,6 +92,9 @@ namespace ClassLibrarySkema
 
             return possibleRooms;
         }
+
+
+      
 
 
         //Checks if the total number of students is greater or equal to the size of the lokale 
