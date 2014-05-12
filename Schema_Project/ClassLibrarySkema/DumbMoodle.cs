@@ -111,6 +111,22 @@ namespace ClassLibrarySkema
             //          from time in times
             //          select new LectureTime() { WeekNumber = week, WeekDay = day, TimeOfDay = time };
             //return ret.ToList();
+            for (int i = 1; i <= weeks.Count ; i++)
+            {
+                foreach (DayOfWeek dow in days)
+                {
+                    foreach (TimeOfDay tod in times)
+                    {
+                        listToReturn.Add(new LectureTime()
+                            {
+                                WeekNumber = i,
+                                WeekDay = dow,
+                                TimeOfDay = tod
+                            });
+                    } 
+                }
+                
+            }
             return listToReturn;
         }
     }
