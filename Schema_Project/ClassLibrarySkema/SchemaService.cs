@@ -11,6 +11,14 @@ namespace ClassLibrarySkema
 {
     public class SchemaService
     {
+        MasterSchema masterschema;
+
+        public SchemaService()
+        {
+            IMoodle moodle = new DumbMoodle();
+            SchemaPlanner planner = new SchemaPlanner();
+            this.masterschema = planner.GenerateSchema(moodle);
+        }
         /// <summary>
         /// used to create a schema for a given hold/group
         /// </summary>
@@ -19,84 +27,134 @@ namespace ClassLibrarySkema
         /// <returns>a schema for a group/hold</returns>
         public Skema CreateHoldSkema(string holdKode)
         {
-            Skema ResultSkema = new Skema();
+            Skema resultSkema = new Skema();
+            //List<Hold> holdList = null;
+            foreach (SchemaCourse item in masterschema.SchemaCourse)
+            {
+                //holdList = item.Course.HoldObjs;
+                if (CheckHoldInList(item.Course.HoldObjs, holdKode)) 
+                {
+                    foreach (LectureTime lt in item.LectureTimes)
+                    {
+                        Lecture lecture = new Lecture()
+                        {
+                            Time = lt,
+                            Place = item.Place,
+                            Course = item.Course,
+                            Teacher = item.Course.LaererObj,
+                            Hold = item.Course.HoldObjs
+                        }; 
+                        resultSkema.LectureList.Add(lecture);
+                    }
+                }
+                //holdList = null;
+            }
+            return resultSkema;
+        }
+ 
+    
 
 
-
-            //Hold hold = moodle.Hold.First(h => h.HoldCode == holdKode);
-            //List<Lecture> inputList = skemaObj.LectureList;
-            //foreach (var item in inputList)
-            //{
-            //    if(item.Module.KursusObj.HoldObjs.Contains(hold))
-            //    {
-            //        ResultSkema.LectureList.Add(item);
-            //    }
-            //}
-            return ResultSkema;
+        private bool CheckHoldInList(List<Hold> listOfHold, string holdCode)
+        {
+            //bool result = false;
+            foreach (Hold item in listOfHold)
+            {
+                if (item.HoldCode == holdCode)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 
         /// <summary>
-        /// used to create a teacher's schema
+        /// 
         /// </summary>
-        /// <param name="teacherID">the id of the teacher we want the schema for</param>
-        /// <param name="skemaObj">a general schema containing all lecture information</param>
-        /// <returns>a schema for a given teacher</returns>
+        /// <param name="teacherID"></param>
+        /// <param name="skemaObj"></param>
+        /// <returns></returns>
         public Skema CreateTeacherSkema(string teacherID)
         {
-            Skema ResultSkema = new Skema();
-            //List<Lecture> inputList = skemaObj.LectureList;
-            //foreach (var item in inputList)
-            //{
-            //    if (item.Module.KursusObj.LaererObj.LaererKode == teacherID)
-            //    {
-            //        ResultSkema.LectureList.Add(item);
-            //    }
-            //}
-            return ResultSkema;
+            Skema resultSkema = new Skema();
+            foreach (SchemaCourse item in masterschema.SchemaCourse)
+            {
+                if(item.Course.LaererObj.LaererKode == teacherID)
+                    foreach(LectureTime lt in item.LectureTimes)
+                    {
+                        Lecture lecture = new Lecture()
+                        {
+                            Time = lt,
+                            Place = item.Place,
+                            Course = item.Course,
+                            Teacher = item.Course.LaererObj,
+                            Hold = item.Course.HoldObjs
+                        };
+                        resultSkema.LectureList.Add(lecture);
+                    }
+            }
+            return resultSkema;
         }
 
-
         /// <summary>
-        /// used to create the schema of a given lokale 
+        ///
         /// </summary>
-        /// <param name="lokaleID">id of the lokale</param>
-        /// <param name="skemaObj">a general schema containing all lecture information</param>
-        /// <returns>a schema for a given lokale</returns>
+        /// <param name="lokaleID"></param>
+        /// <param name="skemaObj"></param>
+        /// <returns></returns>
         public Skema CreateLokaleSkema(string lokaleID)
         {
-            Skema ResultSkema = new Skema();
-            //List<Lecture> inputList = skemaObj.LectureList;
-            //foreach (var item in inputList)
-            //{
-            //    if (item.Place.LokaleKode == lokaleID)
-            //    {
-            //        ResultSkema.LectureList.Add(item);
-            //    }
-            //}
-            return ResultSkema;
+            Skema resultSkema = new Skema();
+            foreach(SchemaCourse item in masterschema.SchemaCourse)
+            {
+                if(item.Place.LokaleKode == lokaleID)
+                    foreach (LectureTime lt in item.LectureTimes)
+                    {
+                        Lecture lecture = new Lecture()
+                        {
+                            Time = lt,
+                            Place = item.Place,
+                            Course = item.Course,
+                            Teacher = item.Course.LaererObj,
+                            Hold = item.Course.HoldObjs
+                        };
+                        resultSkema.LectureList.Add(lecture);
+                    }
+            }
+            return resultSkema;
         }
 
 
         /// <summary>
-        /// used to create a schema for a given kursus
+        /// 
         /// </summary>
-        /// <param name="lokaleID">id of the kursus</param>
-        /// <param name="skemaObj">a general schema containing all lecture information</param>
-        /// <returns>a schema for a given kursus</returns>
+        /// <param name="lokaleID"></param>
+        /// <param name="skemaObj"></param>
+        /// <returns></returns>
         public Skema CreateKursusSkema(string courseCode)
         {
-            Skema ResultSkema = new Skema();
+            Skema resultSkema = new Skema();
 
-            //List<Lecture> inputList = skemaObj.LectureList;
-            //foreach (var item in inputList)
-            //{
-            //    if (item.Module.KursusObj.KursusKode == kursusID)
-            //    {
-            //        ResultSkema.LectureList.Add(item);
-            //    }
-            //}
-            return ResultSkema;
+            foreach (SchemaCourse item in masterschema.SchemaCourse)
+            {
+                if(item.Course.KursusKode == courseCode)
+                {
+                    foreach (LectureTime item2 in item.LectureTimes)
+                    {
+                        Lecture lecture = new Lecture()
+                        {
+                            Time = item2,
+                            Place = item.Place,
+                            Course = item.Course,
+                            Teacher = item.Course.LaererObj,
+                            Hold = item.Course.HoldObjs
+                        };
+                        resultSkema.LectureList.Add(lecture);
+                    }
+                }
+            }
+            return resultSkema; 
         }
        
         
