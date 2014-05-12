@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrarySkema", "ClassL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplicationSkema", "ConsoleApplicationSkema\ConsoleApplicationSkema.csproj", "{99E6BC83-F354-4957-99E8-07431D5E73E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestSchemaProject", "UnitTestSchemaProject\UnitTestSchemaProject.csproj", "{622D70DA-943F-4FCE-8898-67D4A6072158}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{99E6BC83-F354-4957-99E8-07431D5E73E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99E6BC83-F354-4957-99E8-07431D5E73E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99E6BC83-F354-4957-99E8-07431D5E73E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622D70DA-943F-4FCE-8898-67D4A6072158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622D70DA-943F-4FCE-8898-67D4A6072158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622D70DA-943F-4FCE-8898-67D4A6072158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622D70DA-943F-4FCE-8898-67D4A6072158}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
