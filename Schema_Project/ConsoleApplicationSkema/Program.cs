@@ -70,12 +70,16 @@ namespace ConsoleApplicationSkema
 
             }
 
+            Console.ReadLine();
+
             //create a schema for teacher with this initials: PJE
             Skema teacherSkema = service.CreateTeacherSkema("PJE");
             foreach (var item in teacherSkema.LectureList)
             {
                 Console.WriteLine(item.ToString());
             }
+
+            Console.ReadLine();
 
             //create a schema for lokale with this id: BH112
             Skema lokaleSkema = service.CreateLokaleSkema("BH112");
@@ -84,6 +88,8 @@ namespace ConsoleApplicationSkema
                 Console.WriteLine(item.ToString());
             }
 
+
+            Console.ReadLine();
 
             //create a schema for a group/hold with id: MTH2014
             Skema holdSkema = service.CreateHoldSkema("MTH2014");
