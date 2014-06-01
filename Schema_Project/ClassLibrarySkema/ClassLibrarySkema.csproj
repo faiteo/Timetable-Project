@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionSchemaPlanning.cs" />
     <Compile Include="SchemaService.cs" />
     <Compile Include="DumbMoodle.cs" />
     <Compile Include="IMoodle.cs" />

@@ -16,46 +16,47 @@ namespace ConsoleApplicationSkema
         {
 
             SchemaService service = new SchemaService();
-            IMoodle moodle = new DumbMoodle();
-            SchemaPlanner planner = new SchemaPlanner();
+            
+            //IMoodle moodle = new DumbMoodle();
+            ////SchemaPlanner planner = new SchemaPlanner();
 
-            foreach (var room in moodle.Rooms)
-                Console.WriteLine(room);
+            //foreach (var room in moodle.Rooms)
+            //    Console.WriteLine(room);
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            foreach (var hold in moodle.Hold)
-                Console.WriteLine(hold);
+            //foreach (var hold in moodle.Hold)
+            //    Console.WriteLine(hold);
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            foreach (var teacher in moodle.Teachers)
-                Console.WriteLine(teacher);
+            //foreach (var teacher in moodle.Teachers)
+            //    Console.WriteLine(teacher);
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            Console.WriteLine(moodle.LookupTeacher("PAN"));
+            //Console.WriteLine(moodle.LookupTeacher("PAN"));
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            Console.WriteLine(moodle.LookupHold("MTH2014"));
+            //Console.WriteLine(moodle.LookupHold("MTH2014"));
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            foreach (var teacherCode in moodle.Teachers.Select(t => t.LaererKode))
-                Console.WriteLine(moodle.LookupTeacher(teacherCode));
+            //foreach (var teacherCode in moodle.Teachers.Select(t => t.LaererKode))
+            //    Console.WriteLine(moodle.LookupTeacher(teacherCode));
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            foreach (var holdCode in moodle.Hold.Select(h => h.HoldCode))
-                Console.WriteLine(moodle.LookupHold(holdCode));
+            //foreach (var holdCode in moodle.Hold.Select(h => h.HoldCode))
+            //    Console.WriteLine(moodle.LookupHold(holdCode));
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
-            foreach (var course in moodle.Courses)
-                Console.WriteLine(course);
+            //foreach (var course in moodle.Courses)
+            //    Console.WriteLine(course);
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
 
            // MasterSchema masterSchema = planner.GenerateSchema(moodle);

@@ -11,16 +11,13 @@ namespace UnitTestSchemaProject
     [TestClass]
     public class TestSchemaClasses
     {
-        SchemaService service = new SchemaService();
+        SchemaService service; 
 
         [TestInitialize]
         public void TestInitialize()
         {
-            IMoodle moodle = new DumbMoodle();
-            SchemaPlanner planner = new SchemaPlanner();
+            service = new SchemaService();
         }
-
-       
 
         [TestMethod]
         public void TestCourseIDInSchema()

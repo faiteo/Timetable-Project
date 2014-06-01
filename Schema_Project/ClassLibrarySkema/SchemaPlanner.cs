@@ -9,7 +9,7 @@ namespace ClassLibrarySkema
 {
     public class SchemaPlanner
     {
-        public MasterSchema GenerateSchema(IMoodle moodle)
+        public MasterSchema GenerateSchema(IMoodle moodle) 
         {
             List<SchemaCourse> schemaCourses = new List<SchemaCourse>();
             List<Lokale> allRooms = moodle.Rooms;
@@ -32,9 +32,17 @@ namespace ClassLibrarySkema
 
                 // of the rooms in possibleRoomTimes.Keys, select those where the number of possible lecture times is enough for the course
                 List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomsWithEnoughLectureTimes(possibleRoomTimes, course);
-
-                // the selected room is first of the possibleRoomsWithEnoughLectureTimes
-                Lokale selectedRoom = possibleRoomsWithEnoughLectureTimes.First();
+                
+                Lokale selectedRoom;
+                try
+                {
+                    // the selected room is first of the possibleRoomsWithEnoughLectureTimes
+                    selectedRoom = possibleRoomsWithEnoughLectureTimes.First();
+                }
+                catch
+                {
+                    throw new ExceptionSchemaPlanning(course);
+                }
 
                 //possibleRoomTimes[selectedRoom]
                 // the selectedLectureTimes is the first course.Course.ModuleCount number of lectureTimes from the possibleLectureTimes for the selected room
