@@ -13,8 +13,11 @@ namespace ClassLibrarySkema.ModelLayer
         public List<Hold> HoldObjs { get; private set; }
         public Laerer LaererObj { get; private set; }
         public int ModuleCount { get; private set; }
+        public List<DayOfWeek> PreferredDays { get; set; }
+        public TimeOfDay TimeOfdayObj { get; set; }
 
-        public Kursus(string code, string name, int moduleCount, List<string> holdCodes, string teacherCode, IMoodle moodle)
+
+        public Kursus(string code, string name, int moduleCount, List<string> holdCodes, string teacherCode, List<DayOfWeek> inputPreferredDays, TimeOfDay inputTimeOfday, IMoodle moodle)
         {
             this.KursusKode = code;
             this.KursusName = name;
@@ -23,6 +26,15 @@ namespace ClassLibrarySkema.ModelLayer
                 this.HoldObjs.Add(moodle.LookupHold(holdCode));
             this.ModuleCount = moduleCount;
             this.LaererObj = moodle.LookupTeacher(teacherCode);
+            this.PreferredDays = new List<DayOfWeek>();
+            foreach (DayOfWeek prefDays in inputPreferredDays)
+            {
+                PreferredDays.Add(prefDays);
+            }
+            TimeOfdayObj = inputTimeOfday;
+
+            //this.PreferredDays = inputPreferredDays; //alternative way of setting the value of preferredDays
+
         }
 
         public override string ToString()

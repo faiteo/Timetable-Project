@@ -9,7 +9,7 @@ namespace ClassLibrarySkema
 {
     public class SchemaPlanner
     {
-        public MasterSchema GenerateSchema(IMoodle moodle) 
+        public MasterSchema GenerateSchema(IMoodle moodle)
         {
             List<SchemaCourse> schemaCourses = new List<SchemaCourse>();
             List<Lokale> allRooms = moodle.Rooms;
@@ -20,7 +20,7 @@ namespace ClassLibrarySkema
             {
                 freeRoomTimes.Add(r, moodle.AllTimes());
             }
-            
+
             // make each course into a SchemaCourse, and remove the lectureTimes for that SchemaCourse Main Loop
             foreach (Kursus course in moodle.Courses)
             {
@@ -30,12 +30,12 @@ namespace ClassLibrarySkema
                 // Dictionary from possible rooms to the possible times for the course. A possible lecture time must have no teacher clash or hold clash. We already know there is no room clash, since we remove the times we have already used for the schema courses in that room.
                 Dictionary<Lokale, List<LectureTime>> possibleRoomTimes = FindPossibleRoomTimes(schemaCourses, course, freeRoomTimes, possibleRooms);
 
-                //Dictionary<Lokale, List<LectureTime>> possibleRoomTimesFiltered = filterPossibleRoomTimes(possibleRoomTimes);
+                Dictionary<Lokale, List<LectureTime>> possibleRoomTimesFiltered = filterPossibleRoomTimes(possibleRoomTimes, course);
 
 
                 // of the rooms in possibleRoomTimes.Keys, select those where the number of possible lecture times is enough for the course
-                List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomsWithEnoughLectureTimes(possibleRoomTimes, course);
-                
+                List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomsWithEnoughLectureTimes(possibleRoomTimesFiltered, course);
+
                 Lokale selectedRoom;
                 try
                 {
@@ -49,8 +49,8 @@ namespace ClassLibrarySkema
 
                 //possibleRoomTimes[selectedRoom]
                 // the selectedLectureTimes is the first course.Course.ModuleCount number of lectureTimes from the possibleLectureTimes for the selected room
-                List<LectureTime> selectedLectureTimes = SelectLectureTimes(course, possibleRoomTimes[selectedRoom]);
-            
+                List<LectureTime> selectedLectureTimes = SelectLectureTimes(course, possibleRoomTimesFiltered[selectedRoom]);
+
                 // make a new SchemaCourse and add it to the list of already planned schemacourses.
                 schemaCourses.Add(new SchemaCourse() { Course = course, Place = selectedRoom, LectureTimes = selectedLectureTimes });
 
@@ -66,18 +66,18 @@ namespace ClassLibrarySkema
 
 
         //method for choosing the room with >= the number of lecturetimes from the dictionary containing room/lecturetimes enough for the modules in the course 
-        public List<Lokale> FindPossibleRoomsWithEnoughLectureTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes, Kursus course)
+        public List<Lokale> FindPossibleRoomsWithEnoughLectureTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimesFiltered, Kursus course)
         {
             List<Lokale> possibleRoomWithEnoughLectureTimes = new List<Lokale>();
             int numberOfModules = course.ModuleCount;
 
-            foreach (var r in possibleRoomTimes)
+            foreach (var r in possibleRoomTimesFiltered)
             {
                 if (r.Value.Count >= numberOfModules)
                 {
                     possibleRoomWithEnoughLectureTimes.Add(r.Key);
                 }
-            }    
+            }
             return possibleRoomWithEnoughLectureTimes;
         }
 
@@ -107,7 +107,7 @@ namespace ClassLibrarySkema
         }
 
 
-      
+
 
 
         //Checks if the total number of students is greater or equal to the size of the lokale 
@@ -161,25 +161,40 @@ namespace ClassLibrarySkema
             foreach (var r in possibleRooms)//"possibleRooms" the rooms with enough capacity for the students attending the course.
             {
                 possibleRoomTimes[r] = new List<LectureTime>();
-                
+
                 foreach (var lt in freeRoomTimes[r])
                 {
                     if (IsPossibleTimeForCourse(planned, course, lt))
                     {
                         possibleRoomTimes[r].Add(lt);
                     }
-                }                
-             }      
+                }
+            }
             return possibleRoomTimes;
         }
 
-        ////method to filter and select only some particular days from the list of lecturetimes
-        //private Dictionary<Lokale, List<LectureTime>> filterPossibleRoomTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        //method to filter and select only some particular days from the list of lecturetimes
+        Dictionary<Lokale, List<LectureTime>> filterPossibleRoomTimes(Dictionary<Lokale, List<LectureTime>> PossibleRoomTimes, Kursus course)
+        {
+            Dictionary<Lokale, List<LectureTime>> resultFilteredPossibleRoomTimes = new Dictionary<Lokale, List<LectureTime>>();
+            foreach (var r in PossibleRoomTimes)
+            {
+                TimeOfDay todObj = course.TimeOfdayObj;
+                resultFilteredPossibleRoomTimes[r.Key] = new List<LectureTime>();
+                foreach (var lt in r.Value)
+                {
+                    foreach (DayOfWeek prefd in course.PreferredDays)
+                    {
+                        if (prefd.Equals(lt.WeekDay) && lt.TimeOfDay.Equals(todObj))
+                        {
+                            resultFilteredPossibleRoomTimes[r.Key].Add(lt);
+                        }
+                    }
+                }
 
-
+            }
+            return resultFilteredPossibleRoomTimes;
+        }
     }
 }
 
@@ -189,4 +204,3 @@ namespace ClassLibrarySkema
 
 
 
-   
