@@ -30,6 +30,9 @@ namespace ClassLibrarySkema
                 // Dictionary from possible rooms to the possible times for the course. A possible lecture time must have no teacher clash or hold clash. We already know there is no room clash, since we remove the times we have already used for the schema courses in that room.
                 Dictionary<Lokale, List<LectureTime>> possibleRoomTimes = FindPossibleRoomTimes(schemaCourses, course, freeRoomTimes, possibleRooms);
 
+                //Dictionary<Lokale, List<LectureTime>> possibleRoomTimesFiltered = filterPossibleRoomTimes(possibleRoomTimes);
+
+
                 // of the rooms in possibleRoomTimes.Keys, select those where the number of possible lecture times is enough for the course
                 List<Lokale> possibleRoomsWithEnoughLectureTimes = FindPossibleRoomsWithEnoughLectureTimes(possibleRoomTimes, course);
                 
@@ -59,6 +62,8 @@ namespace ClassLibrarySkema
             }
             return new MasterSchema() { SchemaCourse = schemaCourses };
         }
+
+
 
         //method for choosing the room with >= the number of lecturetimes from the dictionary containing room/lecturetimes enough for the modules in the course 
         public List<Lokale> FindPossibleRoomsWithEnoughLectureTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes, Kursus course)
@@ -167,6 +172,12 @@ namespace ClassLibrarySkema
              }      
             return possibleRoomTimes;
         }
+
+        ////method to filter and select only some particular days from the list of lecturetimes
+        //private Dictionary<Lokale, List<LectureTime>> filterPossibleRoomTimes(Dictionary<Lokale, List<LectureTime>> possibleRoomTimes)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
     }

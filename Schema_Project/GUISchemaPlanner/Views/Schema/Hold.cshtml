@@ -1,0 +1,22 @@
+﻿@model ClassLibrarySkema.ModelLayer.Skema
+
+@{
+    ViewBag.Title = "Hold";
+}
+
+<h2>Hold</h2>
+
+<div>
+    <h4>Skema</h4>
+	<hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+
+@foreach (var lecture in Model.LectureList)
+{
+    <p>
+        @lecture.ToString();
+
+    </p>
+}
