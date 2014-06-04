@@ -113,11 +113,11 @@ namespace ClassLibrarySkema
         //Checks if the total number of students is greater or equal to the size of the lokale 
         public bool RoomHasCapacity(Lokale room, Kursus course)
         {
-            //List<int> holdCountList = HoldCount(course);
-            //int totalSumOfHold = holdCountList.Sum();
-            //return room.LokaleCapacity >= totalSumOfHold;
+            List<int> holdCountList = HoldCount(course);
+            int totalSumOfHold = holdCountList.Sum();
+            return room.LokaleCapacity >= totalSumOfHold;
 
-            return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
+            //return room.LokaleCapacity >= course.HoldObjs.Select(h => h.HoldAntal).Sum();
         }
 
         // returns the total number of students from each Hold, participating in a given Kursus   
@@ -145,6 +145,24 @@ namespace ClassLibrarySkema
             return coursesForThisTeacher.Any(sc => sc.LectureTimes.Contains(time));
 
             //return planned.Where(sc => sc.Course.LaererObj == teacher).Any(sc => sc.LectureTimes.Contains(time));
+        }
+
+        //New definition for teacher clash
+        public bool TeacherClash2(List<SchemaCourse> planned, Laerer teacher, LectureTime time)
+        {
+            bool result = true;
+            foreach (SchemaCourse sc in planned)
+            {
+                if(sc.Course.LaererObj == teacher)
+                {
+                    foreach (LectureTime lt in sc.LectureTimes)
+                    {
+                        if (lt == time)
+                            result = false;
+                    }
+                }
+            }
+            return result;
         }
 
         // there is a hold clash if any of the hold in the lecture is already in some other lecture at the same time
