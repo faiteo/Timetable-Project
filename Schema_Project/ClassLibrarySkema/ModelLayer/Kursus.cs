@@ -14,10 +14,11 @@ namespace ClassLibrarySkema.ModelLayer
         public Laerer LaererObj { get; private set; }
         public int ModuleCount { get; private set; }
         public List<DayOfWeek> PreferredDays { get; set; }
-        public TimeOfDay TimeOfdayObj { get; set; }
+        public TimeOfDay PreferredTimeOfday { get; set; }
 
 
-        public Kursus(string code, string name, int moduleCount, List<string> holdCodes, string teacherCode, List<DayOfWeek> inputPreferredDays, TimeOfDay inputTimeOfday, IMoodle moodle)
+        public Kursus(string code, string name, int moduleCount, List<string> holdCodes, string teacherCode, 
+                      List<DayOfWeek> inputPreferredDays, TimeOfDay inputTimeOfday, IMoodle moodle)
         {
             this.KursusKode = code;
             this.KursusName = name;
@@ -31,8 +32,8 @@ namespace ClassLibrarySkema.ModelLayer
             {
                 PreferredDays.Add(prefDays);
             }
-            TimeOfdayObj = inputTimeOfday;
-
+            PreferredTimeOfday = inputTimeOfday;
+            
             //this.PreferredDays = inputPreferredDays; //alternative way of setting the value of preferredDays
 
         }

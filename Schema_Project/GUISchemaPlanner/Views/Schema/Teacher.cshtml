@@ -4,14 +4,29 @@
     ViewBag.Title = "Teacher";
 }
 
-<h2>Teacher</h2>
+<h2>Teacher </h2>
 
 <div>
-    <h4>Skema</h4>
+    <h4>Timetable</h4>
 	<hr />
     <dl class="dl-horizontal">
     </dl>
 </div>
+
+
+<table>
+    <tr>
+        <th>Time</th>
+        @foreach(var weeknum in Model.LectureList)
+        {
+            <th>@weeknum</th>
+        }
+    </tr>
+</table>
+
+
+
+
     @foreach(var lecture in Model.LectureList)
     { 
         <p>
@@ -19,3 +34,6 @@
             
         </p>
     }
+
+
+

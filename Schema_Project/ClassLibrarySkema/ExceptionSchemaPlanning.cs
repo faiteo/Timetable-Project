@@ -10,7 +10,7 @@ namespace ClassLibrarySkema
     public class ExceptionSchemaPlanning : Exception
     {
         public Kursus kursusObj { get; set; }
-
+  
         public ExceptionSchemaPlanning(Kursus input)
         {
             this.kursusObj = input;

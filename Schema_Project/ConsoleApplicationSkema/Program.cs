@@ -63,15 +63,15 @@ namespace ConsoleApplicationSkema
 
 
 
-            ////create a schema for kursus with this id ALG100: 
-            //Skema kursusSkema = service.CreateKursusSkema("ALG100");
-            //foreach (var item in kursusSkema.LectureList)
-            //{
-            //    Console.WriteLine(item.ToString());
+            //create a schema for kursus with this id ALG100: 
+            Skema kursusSkema = service.CreateKursusSkema("ALG100");
+            foreach (var item in kursusSkema.LectureList)
+            {
+                Console.WriteLine(item.ToString());
 
-            //}
+            }
 
-            //Console.ReadLine();
+            Console.ReadLine();
 
             //create a schema for teacher with this initials: PJE
             Skema teacherSkema = service.CreateTeacherSkema("PAN");
@@ -82,25 +82,25 @@ namespace ConsoleApplicationSkema
 
             Console.ReadLine();
 
-            ////create a schema for lokale with this id: BH112
-            //Skema lokaleSkema = service.CreateLokaleSkema("BH112");
-            //foreach (var item in lokaleSkema.LectureList)
-            //{
-            //    Console.WriteLine(item.ToString());
-            //}
+            //create a schema for lokale with this id: BH112
+            Skema lokaleSkema = service.CreateLokaleSkema("BH112");
+            foreach (var item in lokaleSkema.LectureList)
+            {
+                Console.WriteLine(item.ToString());
+            }
 
 
-            //Console.ReadLine();
+            Console.ReadLine();
 
-            ////create a schema for a group/hold with id: MTH2014
-            //Skema holdSkema = service.CreateHoldSkema("MTH2014");
+            //create a schema for a group/hold with id: MTH2014
+            Skema holdSkema = service.CreateHoldSkema("MTH2014");
 
-            //foreach (var item in holdSkema.LectureList)
-            //{
-            //    Console.WriteLine(item.ToString());
-            //}
+            foreach (var item in holdSkema.LectureList)
+            {
+                Console.WriteLine(item.ToString());
+            }
 
-            //Console.ReadKey();
+            Console.ReadKey();
             
         }
     }
